@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
-from services import UserService, JWTService
+from src.userauthsystem.service.jwtservice import JWTService
+from src.userauthsystem.service.userservice import UserService
 from src.userauthsystem.model import User
 
 app = Flask(__name__)
@@ -26,26 +27,18 @@ class UserController:
             "email": request.json['email'],
             "password": request.json['password']
         }
-        token = user_service.login_user(login_request)
+        token = user_service.login_user(login_request, jwt_service)
+        if not token:
+            return jsonify({'error': 'Invalid credentials'}), 401
         return jsonify({'token': token}), 200
 
     @staticmethod
     @app.route('/profile', methods=['GET'])
-    def get_profile():
+    def profile():
         token = request.headers.get('Authorization')
-
-        if not token:
-            return jsonify({"error": "Missing token"}), 401
-
-        user_id = jwt_service.verify_token(token)
-        if not user_id:
-            return jsonify({"error": "Invalid token"}), 401
-
-        return jsonify({"message": f"Hello, user {user_id}!"})
-
-        return jsonify(
-            {"name": "Civm", "email": "<EMAIL>"}
-        )
+        print(token)
+        user_profile = user_service.get_profile(token, jwt_service)
+        return user_profile
 
 if __name__ == '__main__':
     app.run()

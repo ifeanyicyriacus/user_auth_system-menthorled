@@ -8,10 +8,18 @@ def verify_password(password:str, hashed_password:str) -> bool:
 
 class User:
     def __init__(self, name, email, password):
+        self.id = None
         self.name = name
         self.email = email
         self._hashed_password = None
         self.set_password(password)
+
+    @property
+    def id(self):
+        return self._id
+    @id.setter
+    def id(self, id):
+        self._id = id
 
     @property
     def name(self):
@@ -35,6 +43,7 @@ class User:
     @property
     def serialize(self) -> dict:
         return {
+            'id': self.id,
             'name': self.name,
             'email': self.email,
         }
