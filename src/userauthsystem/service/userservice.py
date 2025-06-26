@@ -35,11 +35,13 @@ class UserService:
 
     @staticmethod
     def get_profile(token:str, jwt_service:JWTService) -> tuple[Response, int]:
-        if not token:
-            return jsonify({"error": "Missing token"}), 401
-        print(jwt_service.verify_token(token))
-        user_profile = jwt_service.verify_token(token)
-        if not user_profile:
-            return jsonify({"error": "Invalid token"}), 401
+        try:
+            if not token:
+                return jsonify({"error": "Missing token"}), 401
+            user_profile = jwt_service.verify_token(token)
+            if not user_profile:
+                return jsonify({"error": "Invalid token"}), 401
 
-        return jsonify(user_profile), 200
+            return jsonify(user_profile), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 401
