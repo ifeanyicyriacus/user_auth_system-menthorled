@@ -1,7 +1,8 @@
-# User Authentication and Authorization Microservice API
-Swagger: https://app.swaggerhub.com/apis/cyriacusifeanyi/UserAuthenticationService/1.0.0
-Render: https://user-auth-system-menthorled.onrender.com
-GItHub: https://github.com/ifeanyicyriacus/user_auth_system-menthorled
+# User Authentication and Authorisation Microservice API
+- Swagger: https://user-auth-system-menthorled.onrender.com/apidocs
+- Render: https://user-auth-system-menthorled.onrender.com
+- GitHub: https://github.com/ifeanyicyriacus/user_auth_system-menthorled
+- Postman: https://documenter.getpostman.com/view/5905366/2sB2xEBToV
 
 
 
