@@ -3,18 +3,18 @@ import os
 from flask import jsonify, Response
 
 from src.userauthsystem.model import User
-from src.userauthsystem.repositories import MongoDBRepository, Repository, UserFileRepository
+from src.userauthsystem.repositories import MongoDBRepository, Repository
 from src.userauthsystem.service.jwtservice import JWTService
 
 
 class UserService:
-    # user_repository:Repository = MongoDBRepository(
-    #     connection_string=os.getenv('MONGODB_CONNECTION_STRING'),
-    #     database_name=os.getenv('MONGODB_DATABASE_NAME'),
-    #     collection_name=os.getenv('MONGODB_COLLECTION_NAME')
-    # )
-    user_repository:Repository = UserFileRepository()
-
+    user_repository:Repository = MongoDBRepository(
+        connection_string=os.getenv('MONGODB_CONNECTION_STRING'),
+        database_name=os.getenv('MONGODB_DATABASE_NAME'),
+        collection_name=os.getenv('MONGODB_COLLECTION_NAME')
+    )
+    # user_repository:Repository = UserInMemoryRepository()
+    # user_repository:Repository = SQLiteRepository()
 
     def register_user(self, new_user_request) -> User:
         new_user:User = User(**new_user_request)

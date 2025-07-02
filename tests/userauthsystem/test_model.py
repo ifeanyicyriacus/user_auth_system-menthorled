@@ -35,6 +35,7 @@ class TestUserModel(unittest.TestCase):
     def test_user_serialize(self):
         serialized_data = self.user.serialize
         self.assertEqual(serialized_data, {
+            "id":self.user.id,
             "name": self.user.name,
             "email": self.user.email
         })
